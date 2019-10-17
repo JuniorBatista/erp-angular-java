@@ -1,0 +1,22 @@
+<div class="center-login">
+    <p-card header="Login">
+        <div class="p-grid">
+                
+            <div class="p-col-2">Usuario</div>
+            <div class="p-col-8">
+                <input pInputText type="text" > <!--[(ngModel)]="authenticate.login"-->
+            </div>
+
+            <div class="p-col-2">Senha</div>
+            <div class="p-col-10">
+                <input pPassword type="password"/> <!-- [(ngModel)]="authenticate.password" -->
+            </div>
+            <br>
+            <div class="p-col-10 p-offset-2">
+                <button pButton type="submit" label="Entrar" (click)="login()"></button>
+            </div>
+            
+        </div>
+    </p-card>
+    <p-toast></p-toast>
+</div>
