@@ -3,8 +3,8 @@ export class Usuario {
     nome: string;
     email: string;
     funcao: string;
-    senha: string;
     dataCadastro: Date;
     dataAtualizacao: Date;
-    isLogado: boolean;
+    senha: string;
+    token: string;
 }

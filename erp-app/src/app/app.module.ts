@@ -6,16 +6,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { AuthenticateComponent } from './core/authenticate/authenticate.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { HeaderComponent } from './core/header/header.component';
 import { LoginComponent } from './core/authenticate/login/login.component';
+import { LogoutComponent } from './core/authenticate/logout/logout.component';
 import { MenuComponent } from './core/menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import { CrudChamadosComponent } from './modules/crud-chamados/crud-chamados.component';
 import { CrudUsuariosComponent } from './modules/crud-usuarios/crud-usuarios.component';
-
-import { AuthGuard } from './core/authenticate/authenticate.guard';
 
 import { TableModule } from 'primeng/table';
 import { PanelModule } from 'primeng/panel';
@@ -27,12 +25,11 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MessageService } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { CardModule } from 'primeng/card';
-import { ToastComponent } from './core/toast/toast.component';
+import { AlertComponent } from './core/alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticateComponent,
     FooterComponent,
     HeaderComponent,
     LoginComponent,
@@ -40,7 +37,8 @@ import { ToastComponent } from './core/toast/toast.component';
     HomeComponent,
     CrudChamadosComponent,
     CrudUsuariosComponent,
-    ToastComponent
+    LogoutComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +57,7 @@ import { ToastComponent } from './core/toast/toast.component';
     MenubarModule,
     CardModule
   ],
-  providers: [MessageService, AuthGuard],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

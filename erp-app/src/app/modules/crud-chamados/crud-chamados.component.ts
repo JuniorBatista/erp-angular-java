@@ -14,6 +14,7 @@ import { Usuario } from 'src/app/classes/usuario/usuario';
 })
 export class CrudChamadosComponent implements OnInit {
 
+  listaUsuarios: Usuario[];
   listaAtribuidos: Usuario[];
   listaSolicitantes: Usuario[];
 
@@ -21,31 +22,33 @@ export class CrudChamadosComponent implements OnInit {
   selectedSolicitante: Usuario;
 
   chamado: Chamado = new Chamado();
-  chamados = Array<Chamado>();
+  chamados: Chamado[];
 
   constructor(
     private usuarioService: UsuarioService,
     private chamadoService: ChamadoService,
     private messageService: MessageService
   ) {
-
-    this.usuarioService.listar()
-      .subscribe(
-          resposta => {
-            this.listaAtribuidos = resposta as Array<Usuario>;
-            this.listaSolicitantes = resposta as Array<Usuario>;
-          }
-      );
-
   }
 
   ngOnInit() {
     this.consultar();
+
+    this.getListaUsuarios().forEach(function(usuario) {
+      this.listaAtribuidos.push({label: usuario.nome, value: usuario.id});
+    });
+
+  }
+
+  public getListaUsuarios(): Usuario[] {
+    this.usuarioService.listar()
+      .subscribe(resposta => this.listaUsuarios = resposta as Usuario[]);
+    return this.listaUsuarios;
   }
 
   consultar() {
     this.chamadoService.listar()
-      .subscribe(resposta => this.chamados = resposta as Array<Chamado>);
+      .subscribe(resposta => this.chamados = resposta as Chamado[]);
   }
 
   adicionar() {

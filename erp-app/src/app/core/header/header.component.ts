@@ -1,6 +1,4 @@
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,23 +7,9 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  isShowMenu = false;
-
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
-    console.info("this");
-    console.info(this);
-
-  console.info("this.router");
-    console.info(this.router);
-
-    console.info("this.router.url");
-    console.info(this.router.url);
-    if (this.router.url === '/login') {
-      this.isShowMenu = true;
-    }
-
   }
 
 }

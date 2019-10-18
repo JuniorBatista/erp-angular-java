@@ -6,4 +6,6 @@ export class Chamado {
     descricao: string;
     atribuido: Usuario;
     solicitante: Usuario;
+    dataCadastro: Date;
+    dataAtualizacao: Date;
 }

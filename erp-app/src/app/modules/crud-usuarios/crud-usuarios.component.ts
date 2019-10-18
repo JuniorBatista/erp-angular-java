@@ -10,7 +10,7 @@ import { Usuario } from 'src/app/classes/usuario/usuario';
   styleUrls: ['./crud-usuarios.component.css']
 })
 export class CrudUsuariosComponent implements OnInit {
-
+  
   usuario: Usuario = new Usuario();
   usuarios = Array<Usuario>();
 
