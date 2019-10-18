@@ -6,16 +6,16 @@ import { Usuario } from '../classes/usuario/usuario';
   providedIn: 'root'
 })
 export class UsuarioService {
-  
-  apiUrl = 'http://localhost:8080/usuarios';
-  
+
+  apiUrl = 'http://localhost:8080/usuario';
+
   constructor(private httpClient: HttpClient) { }
 
   listar() {
     return this.httpClient.get(this.apiUrl);
   }
 
-  adicionar(usuario:Usuario) {
+  adicionar(usuario: Usuario) {
     return this.httpClient.post(this.apiUrl, usuario);
   }
 

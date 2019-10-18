@@ -8,10 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 @Entity
+@EnableAutoConfiguration
 public class Usuario {
 
 	@Id
@@ -29,12 +33,18 @@ public class Usuario {
 	@NotEmpty
 	@Size(max = 200)
 	private String funcao;
-	
+
+	@Size(max = 100)
+	private String senha;
+
 	@NotEmpty
 	private Date dataCadastro;
 	
 	@NotEmpty
 	private Date dataAtualizacao;
+
+	@Transient
+	private boolean isLogado;
 
 	public Long getId() {
 		return id;
@@ -66,6 +76,22 @@ public class Usuario {
 
 	public void setFuncao(String funcao) {
 		this.funcao = funcao;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public boolean isLogado() {
+		return isLogado;
+	}
+
+	public void setLogado(boolean isLogado) {
+		this.isLogado = isLogado;
 	}
 
 	public Date getDataCadastro() {

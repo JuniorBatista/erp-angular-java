@@ -8,16 +8,16 @@ import { Chamado } from '../classes/chamado/chamado';
 })
 export class ChamadoService {
 
-  apiUrl = 'http://localhost:8080/chamados';
-  
+  apiUrl = 'http://localhost:8080/chamado';
+
   constructor(private httpClient: HttpClient) { }
 
   listar() {
     return this.httpClient.get(this.apiUrl);
   }
 
-  adicionar(chamado:Chamado) {
+  adicionar(chamado: Chamado) {
     return this.httpClient.post(this.apiUrl, chamado);
   }
-  
+
 }

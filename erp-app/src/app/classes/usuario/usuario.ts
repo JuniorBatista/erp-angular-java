@@ -3,8 +3,8 @@ export class Usuario {
     nome: string;
     email: string;
     funcao: string;
-    password: string;
+    senha: string;
     dataCadastro: Date;
     dataAtualizacao: Date;
-    isLoggedIn: boolean;
+    isLogado: boolean;
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticateService } from '../authenticate.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
+import { ToastComponent } from '../../toast/toast.component';
 
 @Component({
   selector: 'app-login',
@@ -9,33 +13,54 @@ import { AuthenticateService } from '../authenticate.service';
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup;
-  private formSubmitAttempt: boolean;
+   loginForm: FormGroup;
+   submitted = false;
+   loading = false;
+   returnUrl: string;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthenticateService
+   constructor(
+    private authService: AuthenticateService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private alertService: AlertService,
+    private toastComponent: ToastComponent
   ) {}
 
-  ngOnInit() {
-    this.form = this.fb.group({
-      userName: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-  }
+   // convenience getter for easy access to form fields
+    get f() { return this.loginForm.controls; }
 
-  isFieldInvalid(field: string) {
-    return (
-      (!this.form.get(field).valid && this.form.get(field).touched) ||
-      (this.form.get(field).untouched && this.formSubmitAttempt)
-    );
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+            login: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      this.authService.login(this.form.value);
+
+     this.submitted = true;
+
+    // stop here if form is invalid
+     if (this.loginForm.invalid) {
+        return;
     }
-    this.formSubmitAttempt = true;
+
+     this.loading = true;
+     this.authService.login(this.f.login.value, this.f.password.value)
+        .pipe(first())
+        .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.toastComponent.showError(error);
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
   }
 
 }

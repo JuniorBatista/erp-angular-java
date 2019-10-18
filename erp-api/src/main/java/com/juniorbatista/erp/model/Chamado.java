@@ -13,7 +13,10 @@ import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 @Entity
+@EnableAutoConfiguration
 public class Chamado {
 
 	@Id
@@ -49,8 +52,6 @@ public class Chamado {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	
 
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -103,6 +104,13 @@ public class Chamado {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Chamado [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", atribuido=" + atribuido
+				+ ", solicitante=" + solicitante + ", dataCadastro=" + dataCadastro + ", dataAtualizacao="
+				+ dataAtualizacao + "]";
 	}
 	
 }

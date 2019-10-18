@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
-import com.juniorbatista.erp.model.Usuario;
-import com.juniorbatista.erp.repository.UsuarioRepository;
+import com.juniorbatista.erp.model.Chamado;
+import com.juniorbatista.erp.repository.ChamadoRepository;
 
 @CrossOrigin
 @RestController
@@ -27,38 +26,30 @@ import com.juniorbatista.erp.repository.UsuarioRepository;
 public class ChamadoController {
 	
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private ChamadoRepository chamadoRepository;
 	
 	@GetMapping
-	public List<Usuario> listar() {
-		return usuarioRepository.findAll();
+	public List<Chamado> listar() {
+		return chamadoRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> buscar(@PathVariable Long id) {
+	public ResponseEntity<Chamado> buscar(@PathVariable Long id) {
 		
-		Optional<Usuario> usuario = usuarioRepository.findById(id); 
-		
-		if (usuario.isEmpty()) {
+		Optional<Chamado> chamado = chamadoRepository.findById(id); 
+
+		if (chamado.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		return ResponseEntity.ok(usuario.get());
+		return ResponseEntity.ok(chamado.get());
 
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario adicionar(@Valid @RequestBody Usuario usuario) {
-		
-		Optional<Usuario> usuarioExistente = usuarioRepository
-				.findByEmail(usuario.getEmail());
- 		
-		if (usuarioExistente.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe um usuário com este e-mail.");
-		}
-		
-		return usuarioRepository.save(usuario);
+	public Chamado adicionar(@Valid @RequestBody Chamado chamado) {
+		return chamadoRepository.save(chamado);
 	}
 	
 }

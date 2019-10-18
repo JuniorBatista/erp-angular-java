@@ -1,22 +1,36 @@
 <div class="center-login">
+    
     <p-card header="Login">
-        <div class="p-grid">
-                
-            <div class="p-col-2">Usuario</div>
-            <div class="p-col-8">
-                <input pInputText type="text" > <!--[(ngModel)]="authenticate.login"-->
-            </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="p-grid">
+                    
+                <div class="p-col-2">Usuario</div>
+                <div class="p-col-8">
+                    <input pInputText type="text" name="login" formControlName="login" 
+                        [ngClass]="{ 'is-invalid': submitted && f.username.errors }" >
+                     <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                        <div *ngIf="f.username.errors.required">Username is required</div>
+                    </div>
+                </div>
 
-            <div class="p-col-2">Senha</div>
-            <div class="p-col-10">
-                <input pPassword type="password"/> <!-- [(ngModel)]="authenticate.password" -->
+                <div class="p-col-2">Senha</div>
+                <div class="p-col-10">
+                    <input pPassword type="password" name="password" formControlName="password" 
+                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+                     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
+                    </div>
+                </div>
+                <br>
+                <div class="p-col-10 p-offset-2">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1">Carregando...</span>
+                    <button pButton type="submit" label="Entrar" (click)="onSubmit()" [disabled]="loading">
+                    </button>
+                </div>
+                
             </div>
-            <br>
-            <div class="p-col-10 p-offset-2">
-                <button pButton type="submit" label="Entrar" (click)="login()"></button>
-            </div>
-            
-        </div>
+        </form>
     </p-card>
-    <p-toast></p-toast>
+    
+    <p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
 </div>

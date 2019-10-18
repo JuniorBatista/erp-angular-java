@@ -13,7 +13,7 @@ import { Usuario } from 'src/app/classes/usuario/usuario';
   styleUrls: ['./crud-chamados.component.css']
 })
 export class CrudChamadosComponent implements OnInit {
-  
+
   listaAtribuidos: Usuario[];
   listaSolicitantes: Usuario[];
 
@@ -28,28 +28,24 @@ export class CrudChamadosComponent implements OnInit {
     private chamadoService: ChamadoService,
     private messageService: MessageService
   ) {
-    
-    /*
-    this.usuarioService.listar()
-      .subscribe(
-          resposta => this.listaAtribuidos = <Array<Usuario>> resposta
-      )
 
     this.usuarioService.listar()
       .subscribe(
-          resposta => this.listaSolicitantes = <Array<Usuario>> resposta
-    )
-    */
+          resposta => {
+            this.listaAtribuidos = resposta as Array<Usuario>;
+            this.listaSolicitantes = resposta as Array<Usuario>;
+          }
+      );
 
   }
 
   ngOnInit() {
-    //this.consultar();
+    this.consultar();
   }
 
   consultar() {
     this.chamadoService.listar()
-      .subscribe(resposta => this.chamados = <Array<Chamado>> resposta)
+      .subscribe(resposta => this.chamados = resposta as Array<Chamado>);
   }
 
   adicionar() {
