@@ -37,10 +37,8 @@ public class Usuario {
 	@Size(max = 100)
 	private String senha;
 
-	@NotEmpty
 	private Date dataCadastro;
 	
-	@NotEmpty
 	private Date dataAtualizacao;
 
 	@Transient

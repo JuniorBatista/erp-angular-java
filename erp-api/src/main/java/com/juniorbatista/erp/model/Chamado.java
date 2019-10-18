@@ -39,10 +39,8 @@ public class Chamado {
 	@ManyToOne
 	private Usuario solicitante;
 
-	@NotEmpty
 	private Date dataCadastro;
 
-	@NotEmpty
 	private Date dataAtualizacao;
 
 	public Long getId() {
