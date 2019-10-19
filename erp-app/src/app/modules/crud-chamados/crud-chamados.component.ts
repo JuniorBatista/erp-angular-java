@@ -18,10 +18,7 @@ export class CrudChamadosComponent implements OnInit {
   listaAtribuidos: Usuario[];
   listaSolicitantes: Usuario[];
 
-  selectedAtribuido: Usuario;
-  selectedSolicitante: Usuario;
-
-  chamado: Chamado = new Chamado();
+  chamado: Chamado;
   chamados: Chamado[];
 
   constructor(
@@ -33,17 +30,15 @@ export class CrudChamadosComponent implements OnInit {
 
   ngOnInit() {
     this.consultar();
-
-    this.getListaUsuarios().forEach(function(usuario) {
-      this.listaAtribuidos.push({label: usuario.nome, value: usuario.id});
-    });
-
+    this.getListaUsuarios();
   }
 
-  public getListaUsuarios(): Usuario[] {
+  getListaUsuarios() {
     this.usuarioService.listar()
-      .subscribe(resposta => this.listaUsuarios = resposta as Usuario[]);
-    return this.listaUsuarios;
+      .subscribe(resposta => {
+        this.listaAtribuidos = resposta as Usuario[];
+        this.listaSolicitantes = resposta as Usuario[];
+      });
   }
 
   consultar() {
@@ -52,6 +47,8 @@ export class CrudChamadosComponent implements OnInit {
   }
 
   adicionar() {
+    console.info('this.chamado');
+    console.info(this.chamado);
     this.chamadoService.adicionar(this.chamado)
       .subscribe(() => {
         this.chamado = new Chamado();

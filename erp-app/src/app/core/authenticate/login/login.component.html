@@ -20,11 +20,12 @@
                 </div>
                 <br>
                 <div class="p-col-10 p-offset-2">
-                    <button pButton type="submit" label="Entrar"></button>
+                    <button pButton type="submit" label="Entrar" *ngIf="!loading"></button>
+                    <i class="fa fa-spinner fa-2x" aria-hidden="true" *ngIf="loading"></i>
                 </div>
                 
             </div>
         </form>
     </p-card>
-    <p-toast></p-toast>
 </div>
+<p-toast></p-toast>

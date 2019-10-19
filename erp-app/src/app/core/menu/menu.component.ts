@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router'
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -11,20 +10,33 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class MenuComponent implements OnInit {
 
-  showMenu: boolean = this.authService.currentUserValue !== null;
+  showMenu: boolean;
 
-  constructor(private router: Router, private authService: AuthenticationService) {
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {
   }
 
   items: MenuItem[];
 
   ngOnInit() {
+    /*
+    console.info(this.authService);
+    console.info(this.authService.currentUserValue);
+    */
+    this.showMenu = this.authService.currentUserValue !== null;
     this.items = [
-      {label: 'Home',  routerLink: '/home'},  
+      {label: 'Home',  routerLink: '/home'},
       {label: 'Usuários', routerLink: '/usuarios'},
       {label: 'Chamados', routerLink: '/chamados'}
     ];
 
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

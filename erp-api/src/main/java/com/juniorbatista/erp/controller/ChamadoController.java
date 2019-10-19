@@ -49,6 +49,7 @@ public class ChamadoController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Chamado adicionar(@Valid @RequestBody Chamado chamado) {
+		System.out.println(chamado.toString());
 		return chamadoRepository.save(chamado);
 	}
 	

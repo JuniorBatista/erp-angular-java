@@ -3,12 +3,12 @@
         
         <div class="p-col-2">Título</div>
         <div class="p-col-8">
-        <input pInputText type="text" [(ngModel)]="chamado.titulo">
+        <input type="text" [(ngModel)]="chamado.titulo" style="width: 300px;">
         </div>
     
         <div class="p-col-2">Descrição</div>
         <div class="p-col-10">
-        <input pInputText type="text" [(ngModel)]="chamado.descricao">
+        <textarea [(ngModel)]="chamado.descricao" style="width: 300px; height: 150px;"></textarea>
         </div>
     
         <!--
@@ -20,12 +20,18 @@
     
         <div class="p-col-2">Atribuído</div>
         <div class="p-col-10">
-            <p-dropdown [options]="listaAtribuidos" [(ngModel)]="selectedAtribuido"></p-dropdown>
+            <select [(ngModel)]="chamado.atribuido" name="atribuido" style="width: 200px;">
+                <option value="">-- Selecione --</option>  
+                <option *ngFor="let usuario of listaAtribuidos" [value]="usuario.id">{{usuario.nome}}</option>
+            </select>
         </div>
     
         <div class="p-col-2">Solicitante</div>
         <div class="p-col-10">
-            <p-dropdown [options]="listaSolicitantes" [(ngModel)]="selectedSolicitante"></p-dropdown>
+            <select [(ngModel)]="chamado.solicitante" name="solicitante" style="width: 200px;">
+                <option value="">-- Selecione --</option>  
+                <option *ngFor="let usuario of listaSolicitantes" [value]="usuario.id">{{usuario.nome}}</option>
+            </select>
         </div>
         <br/>
         <div class="p-col-10 p-offset-2">

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private messageService: MessageService
     ) {
         // redirect to home if already logged in
         if (this.isLoggedIn) {
@@ -51,6 +53,7 @@ export class LoginComponent implements OnInit {
 
         // stop here if form is invalid
         if (this.loginForm.invalid) {
+            this.messageService.add({severity: 'error', summary: 'Formulário inválido'});
             return;
         }
 
@@ -62,7 +65,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.messageService.add({severity: 'error', summary: error.message});
                     this.loading = false;
                 });
     }

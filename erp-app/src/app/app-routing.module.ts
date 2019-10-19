@@ -8,12 +8,12 @@ import { CrudUsuariosComponent } from './modules/crud-usuarios/crud-usuarios.com
 import { CrudChamadosComponent } from './modules/crud-chamados/crud-chamados.component';
 
 const routes: Routes = [
-  { path:'home', component: HomeComponent },
-  { path:'', component: HomeComponent },
-  { path:'usuarios', component: CrudUsuariosComponent },
-  { path:'chamados', component: CrudChamadosComponent },
-  { path:'login', component: LoginComponent },
-  { path:'logout', component: LogoutComponent }
+  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
+  { path: 'usuarios', component: CrudUsuariosComponent },
+  { path: 'chamados', component: CrudChamadosComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent }
 ];
 
 @NgModule({

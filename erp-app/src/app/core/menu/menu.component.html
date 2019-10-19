@@ -1,6 +1,6 @@
 <p-menubar [model]="items" *ngIf="showMenu">
     <div>
-        <button pButton label="Logout" icon="fa fa-sign-out" 
+        <button pButton label="Logout" icon="fa fa-sign-out" (click)="logout()" 
             style="margin-left:.25em; color: #fff; background-color: #d9534f; border-color: #d43f3a;"></button>
     </div>
 </p-menubar>
