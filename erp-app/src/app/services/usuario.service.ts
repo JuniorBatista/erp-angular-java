@@ -15,7 +15,7 @@ export class UsuarioService {
     return this.httpClient.get(this.apiUrl);
   }
 
-  adicionar(usuario:Usuario) {
+  adicionar(usuario: Usuario) {
     return this.httpClient.post(this.apiUrl, usuario);
   }
 

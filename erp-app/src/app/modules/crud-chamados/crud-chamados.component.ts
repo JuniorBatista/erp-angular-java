@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 
 import { ChamadoService } from '../../services/chamado.service';
@@ -6,6 +8,7 @@ import { UsuarioService } from '../../services/usuario.service';
 
 import { Chamado } from 'src/app/classes/chamado/chamado';
 import { Usuario } from 'src/app/classes/usuario/usuario';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-crud-chamados',
@@ -14,24 +17,40 @@ import { Usuario } from 'src/app/classes/usuario/usuario';
 })
 export class CrudChamadosComponent implements OnInit {
 
-  listaUsuarios: Usuario[];
-  listaAtribuidos: Usuario[];
-  listaSolicitantes: Usuario[];
+  chamadoForm: FormGroup;
+  loading = false;
+  submitted = false;
 
-  chamado: Chamado;
-  chamados: Chamado[];
+  chamado = new Chamado();
+  chamados = Array<Chamado>();
+
+  listaAtribuidos = Array<Usuario>();
+  listaSolicitantes = Array<Usuario>();
 
   constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
     private usuarioService: UsuarioService,
     private chamadoService: ChamadoService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private authenticationService: AuthenticationService,
   ) {
+
   }
 
   ngOnInit() {
+
+    this.chamadoForm = this.formBuilder.group({
+      titulo: ['', Validators.required],
+      descricao: ['', Validators.required]
+  });
+
     this.consultar();
     this.getListaUsuarios();
   }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.chamadoForm.controls; }
 
   getListaUsuarios() {
     this.usuarioService.listar()
@@ -46,10 +65,24 @@ export class CrudChamadosComponent implements OnInit {
       .subscribe(resposta => this.chamados = resposta as Chamado[]);
   }
 
-  adicionar() {
-    console.info('this.chamado');
-    console.info(this.chamado);
-    this.chamadoService.adicionar(this.chamado)
+  adicionarChamado() {
+
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.chamadoForm.invalid) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Cadastro inválido'
+      });
+      return;
+    }
+
+    this.loading = true;
+
+    console.info('this.chamadoForm.value'); console.info(this.chamadoForm.value);
+
+    this.chamadoService.adicionar(this.chamadoForm.value)
       .subscribe(() => {
         this.chamado = new Chamado();
         this.consultar();
@@ -58,6 +91,7 @@ export class CrudChamadosComponent implements OnInit {
           severity: 'success',
           summary: 'Chamado adicionado com sucesso'
         });
+        this.loading = false;
 
       },
       resposta => {
@@ -71,6 +105,7 @@ export class CrudChamadosComponent implements OnInit {
           severity: 'error',
           summary: msgError
         });
+        this.loading = false;
       });
   }
 

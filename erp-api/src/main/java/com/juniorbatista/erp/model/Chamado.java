@@ -2,7 +2,6 @@ package com.juniorbatista.erp.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +14,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-@Entity
 @EnableAutoConfiguration
+@Entity
 public class Chamado {
 
 	@Id
@@ -31,12 +30,8 @@ public class Chamado {
 	@Lob
 	private String descricao;
 
-	@NotEmpty
-	@Column(name = "id_atribuido")
 	private Long atribuido;
 
-	@NotEmpty
-	@Column(name = "id_solicitante")
 	private Long solicitante;
 
 	private Date dataCadastro;

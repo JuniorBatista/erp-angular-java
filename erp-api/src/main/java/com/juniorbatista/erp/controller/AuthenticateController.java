@@ -29,7 +29,6 @@ public class AuthenticateController {
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public Usuario login(@RequestBody Usuario usuarioLogin) {
 
-		System.out.println(usuarioLogin.toString());
 		if (usuarioLogin.getEmail().equalsIgnoreCase("admin") && usuarioLogin.getSenha().equalsIgnoreCase("admin")) {
 			usuarioLogin.setLogado(true);
 			return usuarioLogin;

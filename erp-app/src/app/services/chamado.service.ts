@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { Chamado } from '../classes/chamado/chamado';
 
 @Injectable({
@@ -17,6 +16,8 @@ export class ChamadoService {
   }
 
   adicionar(chamado: Chamado) {
+    console.info('adicionar');
+    console.info(chamado);
     return this.httpClient.post(this.apiUrl, chamado);
   }
 

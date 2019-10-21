@@ -30,7 +30,8 @@ export class CrudUsuariosComponent implements OnInit {
       .subscribe(resposta => this.usuarios =  resposta as Array<Usuario>);
   }
 
-  adicionar() {
+  adicionarUsuario() {
+    console.info('this.usuario'); console.info(this.usuario);
     this.usuarioService.adicionar(this.usuario)
       .subscribe(() => {
         this.usuario = new Usuario();

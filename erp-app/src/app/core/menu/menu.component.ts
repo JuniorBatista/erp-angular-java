@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -21,10 +21,6 @@ export class MenuComponent implements OnInit {
   items: MenuItem[];
 
   ngOnInit() {
-    /*
-    console.info(this.authService);
-    console.info(this.authService.currentUserValue);
-    */
     this.showMenu = this.authService.currentUserValue !== null;
     this.items = [
       {label: 'Home',  routerLink: '/home'},

@@ -51,6 +51,9 @@ public class UsuarioController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario adicionar(@Valid @RequestBody Usuario usuario) {
 		
+		System.out.println("usuario.toString()");
+		System.out.println(usuario.toString());
+		
 		Optional<Usuario> usuarioExistente = usuarioRepository
 				.findByEmail(usuario.getEmail());
  		
